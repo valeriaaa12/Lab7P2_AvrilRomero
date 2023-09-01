@@ -1,0 +1,7 @@
+[
+	Valeria,
+	18,
+	Estudiante,
+	1,
+	20000,
+]

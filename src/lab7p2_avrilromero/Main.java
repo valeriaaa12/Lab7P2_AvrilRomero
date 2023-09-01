@@ -4,6 +4,7 @@
  */
 package lab7p2_avrilromero;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,7 +77,7 @@ public class Main extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        color = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -408,7 +410,12 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Color");
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 255));
+        color.setBackground(new java.awt.Color(255, 0, 255));
+        color.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colorMouseClicked(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("Modelo");
@@ -429,6 +436,11 @@ public class Main extends javax.swing.JFrame {
 
         bt_vehiculo.setBackground(new java.awt.Color(0, 102, 102));
         bt_vehiculo.setText("Agregar Vehiculo");
+        bt_vehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_vehiculoMouseClicked(evt);
+            }
+        });
 
         txt_marca.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -456,7 +468,7 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,7 +510,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -737,6 +749,9 @@ public class Main extends javax.swing.JFrame {
             bw.flush();
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
+            txt_nombrevendedor.setText("");
+            txt_carrosvendidos.setText("");
+            txt_dinerogenerado.setText("");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -774,7 +789,7 @@ public class Main extends javax.swing.JFrame {
             valid2 = valid2(sueldo);
         }
         Cliente c = new Cliente(nombre, edad, profesion, cant_carros, sueldo);
-
+        clientes.add(c);
         File archivo = null;
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -812,6 +827,11 @@ public class Main extends javax.swing.JFrame {
             bw.flush();
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
+            txt_nombrecliente1.setText("");
+            txt_cantcarros1.setText("");
+            txt_profesion.setText("");
+            txt_sueldo.setText("");
+            txt_edadcliente.setText("");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -822,6 +842,79 @@ public class Main extends javax.swing.JFrame {
         } catch (IOException ex) {
         }
     }//GEN-LAST:event_bt_clienteMouseClicked
+
+    private void bt_vehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_vehiculoMouseClicked
+        // TODO add your handling code here:
+        String marca = txt_marca.getText();
+        Color color1 = color.getBackground();
+        String modelo = txt_modelo.getText();
+        int anio = Integer.parseInt(txt_year.getText());
+        double precio = Double.parseDouble(txt_precio.getText());
+        boolean valid1 = valid(anio);
+        boolean valid2 = valid2(precio);
+        while (valid1 == false) {
+            txt_year.setText("");
+            anio = Integer.parseInt(txt_year.getText());
+            valid1 = valid(anio);
+        }
+        while (valid2 == false) {
+            txt_precio.setText("");
+            precio = Double.parseDouble(txt_precio.getText());
+            valid2 = valid2(precio);
+        }
+        File archivo = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            archivo = new File("./Clientes.txt");
+            fw = new FileWriter(archivo, true);
+            bw = new BufferedWriter(fw);
+
+            String x = "[";
+            x += "\n";
+            x += "\t";
+            x += marca;
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += modelo;
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_year.getText();
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_precio.getText();
+            x += ",";
+            x += "\n";
+            x += "]";
+            bw.write(x);
+            bw.newLine();
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Agregado exitosamente");
+            txt_marca.setText("");
+            txt_modelo.setText("");
+            txt_precio.setText("");
+            txt_cantcarros1.setText("");
+         
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_vehiculoMouseClicked
+
+    private void colorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorMouseClicked
+        // TODO add your handling code here:
+        color.setBackground(JColorChooser.showDialog(this, "Ingrese un color", Color.yellow));
+    }//GEN-LAST:event_colorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -893,7 +986,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb1;
     private javax.swing.JComboBox<String> cb2;
     private javax.swing.JComboBox<String> cb3;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton color;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
