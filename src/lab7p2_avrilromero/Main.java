@@ -33,6 +33,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         leerVehiculos1();
         leerClientes();
+        leervendedores();
     }
 
     /**
@@ -54,9 +55,11 @@ public class Main extends javax.swing.JFrame {
         txt_carrosvendidos = new javax.swing.JTextField();
         txt_dinerogenerado = new javax.swing.JTextField();
         bt_vendedor = new javax.swing.JButton();
-        ta_vendedor = new javax.swing.JPanel();
         bt_cargar2 = new javax.swing.JButton();
         bt_guardar2 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        ta_vendedores = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -70,9 +73,10 @@ public class Main extends javax.swing.JFrame {
         txt_sueldo = new javax.swing.JTextField();
         bt_cliente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        ta_clientes = new javax.swing.JTextArea();
         bt_cargar3 = new javax.swing.JButton();
         bt_guardar3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -142,24 +146,29 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        ta_vendedor.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout ta_vendedorLayout = new javax.swing.GroupLayout(ta_vendedor);
-        ta_vendedor.setLayout(ta_vendedorLayout);
-        ta_vendedorLayout.setHorizontalGroup(
-            ta_vendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
-        );
-        ta_vendedorLayout.setVerticalGroup(
-            ta_vendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
-        );
-
         bt_cargar2.setBackground(new java.awt.Color(0, 102, 102));
         bt_cargar2.setText("Cargar Archivo");
+        bt_cargar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_cargar2MouseClicked(evt);
+            }
+        });
 
         bt_guardar2.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar2.setText("Guardar Archivo");
+
+        ta_vendedores.setBackground(new java.awt.Color(255, 255, 255));
+        ta_vendedores.setColumns(20);
+        ta_vendedores.setRows(5);
+        jScrollPane6.setViewportView(ta_vendedores);
+
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
+        jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -176,14 +185,19 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(txt_carrosvendidos)
                         .addComponent(txt_dinerogenerado, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
                     .addComponent(bt_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ta_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(bt_cargar2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bt_guardar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(66, 66, 66))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(bt_cargar2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bt_guardar2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(207, 207, 207))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,19 +215,20 @@ public class Main extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(jLabel8)
                         .addGap(26, 26, 26)
-                        .addComponent(txt_dinerogenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(txt_dinerogenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(ta_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_cargar2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(bt_guardar2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Vendedor", jPanel3);
@@ -253,16 +268,29 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        ta_clientes.setBackground(new java.awt.Color(255, 255, 255));
+        ta_clientes.setColumns(20);
+        ta_clientes.setRows(5);
+        jScrollPane2.setViewportView(ta_clientes);
 
         bt_cargar3.setBackground(new java.awt.Color(0, 102, 102));
         bt_cargar3.setText("Cargar Archivo");
+        bt_cargar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_cargar3MouseClicked(evt);
+            }
+        });
 
         bt_guardar3.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar3.setText("Guardar Archivo");
+
+        jButton4.setBackground(new java.awt.Color(0, 102, 102));
+        jButton4.setText("Eliminar");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -299,6 +327,10 @@ public class Main extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(bt_guardar3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(267, 267, 267))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(88, 88, 88)
@@ -336,7 +368,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(bt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_cargar3, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(bt_guardar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(105, 105, 105)
@@ -939,6 +973,78 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void bt_cargar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargar2MouseClicked
+        // TODO add your handling code here:
+        File x = new File("./Vendedores.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+           
+            String linea1;
+                ta_vendedores.setText("");
+                while ((linea1 = br.readLine()) != null) {
+                    ta_vendedores.append(linea1);//lo que se va leyendo se va agregando al text area
+                    ta_vendedores.append("\n");
+                }
+            
+                   } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            br.close();
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_bt_cargar2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        ta_vendedores.setText("");
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        ta_clientes.setText("");
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void bt_cargar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargar3MouseClicked
+        // TODO add your handling code here:
+        File x = new File("./Clientes.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+           
+            String linea1;
+                ta_clientes.setText("");
+                while ((linea1 = br.readLine()) != null) {
+                    ta_clientes.append(linea1);//lo que se va leyendo se va agregando al text area
+                    ta_clientes.append("\n");
+                }
+            
+                   } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            br.close();
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_cargar3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1154,8 +1260,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb3;
     private javax.swing.JComboBox<String> clientes2;
     private javax.swing.JTextField color;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1186,12 +1294,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTree jTree1;
     private javax.swing.JTree jTree2;
+    private javax.swing.JTextArea ta_clientes;
     private javax.swing.JTextArea ta_vehiculo;
-    private javax.swing.JPanel ta_vendedor;
+    private javax.swing.JTextArea ta_vendedores;
     private javax.swing.JTextArea ta_venta;
     private javax.swing.JTextField txt_cantcarros1;
     private javax.swing.JTextField txt_carrosvendidos;
