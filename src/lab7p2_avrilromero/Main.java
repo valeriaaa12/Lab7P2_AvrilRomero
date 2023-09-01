@@ -8,10 +8,14 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
@@ -25,8 +29,9 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public Main() throws IOException {
         initComponents();
+        leerVehiculos1();
     }
 
     /**
@@ -584,6 +589,11 @@ public class Main extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 102, 102));
         jButton3.setText("update opciones");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -744,6 +754,7 @@ public class Main extends javax.swing.JFrame {
             x += ",";
             x += "\n";
             x += "]";
+            x += ";";
             bw.write(x);
             bw.newLine();
             bw.flush();
@@ -822,6 +833,7 @@ public class Main extends javax.swing.JFrame {
             x += ",";
             x += "\n";
             x += "]";
+            x += ";";
             bw.write(x);
             bw.newLine();
             bw.flush();
@@ -846,7 +858,7 @@ public class Main extends javax.swing.JFrame {
     private void bt_vehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_vehiculoMouseClicked
         // TODO add your handling code here:
         String marca = txt_marca.getText();
-        Color color1 = color.getBackground();
+        String color1 = color.getBackground().toString();
         String modelo = txt_modelo.getText();
         int anio = Integer.parseInt(txt_year.getText());
         double precio = Double.parseDouble(txt_precio.getText());
@@ -867,7 +879,7 @@ public class Main extends javax.swing.JFrame {
         BufferedWriter bw = null;
 
         try {
-            archivo = new File("./Clientes.txt");
+            archivo = new File("./Vehiculos.txt");
             fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
 
@@ -882,6 +894,10 @@ public class Main extends javax.swing.JFrame {
             x += ",";
             x += "\n";
             x += "\t";
+            x += color1;
+            x += ",";
+            x += "\n";
+            x += "\t";
             x += txt_year.getText();
             x += ",";
             x += "\n";
@@ -890,6 +906,7 @@ public class Main extends javax.swing.JFrame {
             x += ",";
             x += "\n";
             x += "]";
+            x += ";";
             bw.write(x);
             bw.newLine();
             bw.flush();
@@ -899,7 +916,6 @@ public class Main extends javax.swing.JFrame {
             txt_modelo.setText("");
             txt_precio.setText("");
             txt_cantcarros1.setText("");
-         
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -915,6 +931,16 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         color.setBackground(JColorChooser.showDialog(this, "Ingrese un color", Color.yellow));
     }//GEN-LAST:event_colorMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb1.getModel();
+            cb.removeAllElements();
+            for (Vehiculo x : vehiculos) {
+                cb.addElement(x);
+            }
+            cb1.setModel(cb);
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -946,7 +972,11 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                try {
+                    new Main().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -966,10 +996,60 @@ public class Main extends javax.swing.JFrame {
             return true;
         }
     }
+
+    public void leerVehiculos1() throws FileNotFoundException, IOException {
+        Scanner sc = null;
+        File x = new File("./Vehiculos.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                if (!linea.contains(";")) {
+                    line += linea;
+                } else {
+                    line += "\n]";
+                    datos.add(line);
+                    line = "";
+
+                }
+
+            }
+            for (int i = 0; i < datos.size(); i++) {
+                String line2 = datos.get(i).toString();
+                String[] token = line2.split(",");
+                token[0] = token[0].substring(2, token[0].length());
+                token[1] = token[1].substring(1, token[1].length());
+                token[2] = token[2].substring(1, token[2].length());
+                token[3] = token[3].substring(1, token[3].length());
+                token[4] = token[4].substring(1, token[4].length() - 2);
+                //public Vehiculo(int id, String Marca, Color color, String modelo, int year, double precio) {
+                String marca = token[0];
+                String color = token[1];
+                String modelo = token[2];
+                int year = Integer.parseInt(token[3]);
+                double precio = Double.parseDouble(token[4]);
+                Vehiculo v = new Vehiculo(marca,color,modelo,year,precio);
+                vehiculos.add(v);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        br.close();
+        fr.close();
+        sc.close();
+
+    }
     private ArrayList<Vehiculo> vehiculos;
     private ArrayList<Vendedor> vendedores = new ArrayList();
     private ArrayList<Cliente> clientes;
     private ArrayList<Venta> ventas;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cargar1;
     private javax.swing.JButton bt_cargar2;
