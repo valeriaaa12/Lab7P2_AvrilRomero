@@ -101,7 +101,7 @@ public class Main extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         cb1 = new javax.swing.JComboBox<>();
-        cb2 = new javax.swing.JComboBox<>();
+        clientes2 = new javax.swing.JComboBox<>();
         txt_costoventa = new javax.swing.JTextField();
         cb3 = new javax.swing.JComboBox<>();
         bt_venta = new javax.swing.JButton();
@@ -558,7 +558,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        cb2.setBackground(new java.awt.Color(255, 255, 255));
+        clientes2.setBackground(new java.awt.Color(255, 255, 255));
 
         txt_costoventa.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -605,7 +605,7 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(jLabel17))
                                 .addGap(37, 37, 37)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cb2, 0, 191, Short.MAX_VALUE)
+                                    .addComponent(clientes2, 0, 191, Short.MAX_VALUE)
                                     .addComponent(txt_costoventa)
                                     .addComponent(cb3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,7 +650,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(cb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(clientes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
@@ -716,8 +716,8 @@ public class Main extends javax.swing.JFrame {
             valid2 = valid2(dinero);
         }
         // public Vendedor(String nombre, int cant_carros, double dinero)
-        
-        File archivo ;
+
+        File archivo;
         FileWriter fw = null;
         BufferedWriter bw = null;
 
@@ -786,8 +786,8 @@ public class Main extends javax.swing.JFrame {
             sueldo = Double.parseDouble(txt_sueldo.getText());
             valid2 = valid2(sueldo);
         }
-        
-        File archivo ;
+
+        File archivo;
         FileWriter fw = null;
         BufferedWriter bw = null;
 
@@ -918,11 +918,24 @@ public class Main extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         DefaultComboBoxModel cb = (DefaultComboBoxModel) cb3.getModel();
-            cb.removeAllElements();
-            for (Vehiculo x : vehiculos) {
-                cb.addElement(x.getModelo());
-            }
-            cb3.setModel(cb);
+        cb.removeAllElements();
+        for (Vehiculo x : vehiculos) {
+            cb.addElement(x.getModelo());
+        }
+        cb3.setModel(cb);
+        DefaultComboBoxModel cb2 = (DefaultComboBoxModel) cb1.getModel();
+        cb.removeAllElements();
+        for (Vendedor x : vendedores) {
+            cb.addElement(x.getNombre());
+        }
+        cb1.setModel(cb2);
+        DefaultComboBoxModel cb3 = (DefaultComboBoxModel) clientes2.getModel();
+        cb.removeAllElements();
+        for (Cliente x : clientes) {
+            cb.addElement(x.getNombre());
+        }
+        clientes2.setModel(cb3);
+
     }//GEN-LAST:event_jButton3MouseClicked
 
     /**
@@ -981,7 +994,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void leerVehiculos1() throws FileNotFoundException, IOException {
-    
+
         File x = new File("./Vehiculos.txt");
         FileReader fr = null;
         BufferedReader br = null;
@@ -1016,8 +1029,8 @@ public class Main extends javax.swing.JFrame {
                 String modelo = token[2];
                 int year = Integer.parseInt(token[3]);
                 double precio = Double.parseDouble(token[4]);
-                Vehiculo v = new Vehiculo(marca,color,modelo,year,precio);
-              
+                Vehiculo v = new Vehiculo(marca, color, modelo, year, precio);
+
                 vehiculos.add(v);
             }
         } catch (IOException e) {
@@ -1026,7 +1039,6 @@ public class Main extends javax.swing.JFrame {
 
         br.close();
         fr.close();
-     
 
     }
     private ArrayList<Vehiculo> vehiculos = new ArrayList();
@@ -1048,8 +1060,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_vendedor;
     private javax.swing.JButton bt_venta;
     private javax.swing.JComboBox<String> cb1;
-    private javax.swing.JComboBox<String> cb2;
     private javax.swing.JComboBox<String> cb3;
+    private javax.swing.JComboBox<String> clientes2;
     private javax.swing.JTextField color;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
