@@ -32,6 +32,7 @@ public class Main extends javax.swing.JFrame {
     public Main() throws IOException {
         initComponents();
         leerVehiculos1();
+        leerClientes();
     }
 
     /**
@@ -1032,6 +1033,53 @@ public class Main extends javax.swing.JFrame {
                 Vehiculo v = new Vehiculo(marca, color, modelo, year, precio);
 
                 vehiculos.add(v);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        br.close();
+        fr.close();
+
+    }
+
+    public void leerClientes() throws IOException {
+        File x = new File("./Clientes.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                if (!linea.contains(";")) {
+                    line += linea;
+                } else {
+                    line += "\n]";
+                    datos.add(line);
+                    line = "";
+
+                }
+
+            }
+            for (int i = 0; i < datos.size(); i++) {
+                String line2 = datos.get(i).toString();
+                String[] token = line2.split(",");
+                token[0] = token[0].substring(2, token[0].length());
+                token[1] = token[1].substring(1, token[1].length());
+                token[2] = token[2].substring(1, token[2].length());
+                token[3] = token[3].substring(1, token[3].length());
+                token[4] = token[4].substring(1, token[4].length() - 2);
+                // public Cliente(String nombre, int edad, String profesion, int cant_carros, double sueldo) {
+                String nombre = token[0];
+                int edad = Integer.parseInt(token[1]);
+                String profesion = token[2];
+                int cant_carros = Integer.parseInt(token[3]);
+                double sueldo = Double.parseDouble(token[4]);
+                Cliente c = new Cliente(nombre, edad, profesion, cant_carros, sueldo);
+                clientes.add(c);
             }
         } catch (IOException e) {
             e.printStackTrace();
