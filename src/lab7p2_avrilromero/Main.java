@@ -1089,6 +1089,49 @@ public class Main extends javax.swing.JFrame {
         fr.close();
 
     }
+
+    public void leervendedores() throws IOException {
+        File x = new File("./Vendedores.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                if (!linea.contains(";")) {
+                    line += linea;
+                } else {
+                    line += "\n]";
+                    datos.add(line);
+                    line = "";
+
+                }
+
+            }
+            for (int i = 0; i < datos.size(); i++) {
+                String line2 = datos.get(i).toString();
+                String[] token = line2.split(",");
+                token[0] = token[0].substring(2, token[0].length());
+                token[1] = token[1].substring(1, token[1].length());
+                token[2] = token[2].substring(1, token[2].length() - 2);
+
+                //  public Vendedor(String nombre, int cant_carros, double dinero)
+                String nombre = token[0];
+                int cant_carros = Integer.parseInt(token[1]);
+                double sueldo = Double.parseDouble(token[2]);
+                Vendedor v = new Vendedor(nombre, cant_carros, sueldo);
+                vendedores.add(v);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        br.close();
+        fr.close();
+    }
     private ArrayList<Vehiculo> vehiculos = new ArrayList();
     private ArrayList<Vendedor> vendedores = new ArrayList();
     private ArrayList<Cliente> clientes = new ArrayList();
