@@ -1,0 +1,21 @@
+[
+	Toyota,
+	Corolla,
+	Negro,
+	2011,
+	20000,
+];
+[
+	Nissan,
+	Frontier,
+	Blanco,
+	2020,
+	500000,
+];
+[
+	toyota,
+	Corolla,
+	blanco,
+	2015,
+	200000,
+];

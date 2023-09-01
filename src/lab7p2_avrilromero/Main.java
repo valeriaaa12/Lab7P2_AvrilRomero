@@ -82,7 +82,6 @@ public class Main extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        color = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -95,6 +94,7 @@ public class Main extends javax.swing.JFrame {
         txt_precio = new javax.swing.JTextField();
         bt_cargar1 = new javax.swing.JButton();
         bt_guardar1 = new javax.swing.JButton();
+        color = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -415,13 +415,6 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Color");
 
-        color.setBackground(new java.awt.Color(255, 0, 255));
-        color.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                colorMouseClicked(evt);
-            }
-        });
-
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("Modelo");
 
@@ -461,6 +454,8 @@ public class Main extends javax.swing.JFrame {
         bt_guardar1.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar1.setText("Guardar Archivo");
 
+        color.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -472,9 +467,8 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(color))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -490,7 +484,7 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_precio))))
+                                .addComponent(txt_precio, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -512,11 +506,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txt_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -722,15 +716,8 @@ public class Main extends javax.swing.JFrame {
             valid2 = valid2(dinero);
         }
         // public Vendedor(String nombre, int cant_carros, double dinero)
-        Vendedor v = new Vendedor(nombre, cant_carros, dinero);
-        vendedores.add(v);
-        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb1.getModel();
-        cb.removeAllElements();
-        for (Vendedor vendedor : vendedores) {
-            cb.addElement(vendedor);
-        }
-        cb1.setModel(cb);
-        File archivo = null;
+        
+        File archivo ;
         FileWriter fw = null;
         BufferedWriter bw = null;
 
@@ -799,9 +786,8 @@ public class Main extends javax.swing.JFrame {
             sueldo = Double.parseDouble(txt_sueldo.getText());
             valid2 = valid2(sueldo);
         }
-        Cliente c = new Cliente(nombre, edad, profesion, cant_carros, sueldo);
-        clientes.add(c);
-        File archivo = null;
+        
+        File archivo ;
         FileWriter fw = null;
         BufferedWriter bw = null;
 
@@ -858,7 +844,7 @@ public class Main extends javax.swing.JFrame {
     private void bt_vehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_vehiculoMouseClicked
         // TODO add your handling code here:
         String marca = txt_marca.getText();
-        String color1 = color.getBackground().toString();
+        String color1 = color.getText();
         String modelo = txt_modelo.getText();
         int anio = Integer.parseInt(txt_year.getText());
         double precio = Double.parseDouble(txt_precio.getText());
@@ -874,7 +860,7 @@ public class Main extends javax.swing.JFrame {
             precio = Double.parseDouble(txt_precio.getText());
             valid2 = valid2(precio);
         }
-        File archivo = null;
+        File archivo;
         FileWriter fw = null;
         BufferedWriter bw = null;
 
@@ -916,6 +902,8 @@ public class Main extends javax.swing.JFrame {
             txt_modelo.setText("");
             txt_precio.setText("");
             txt_cantcarros1.setText("");
+            color.setText("");
+            txt_year.setText("");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -927,19 +915,14 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_vehiculoMouseClicked
 
-    private void colorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorMouseClicked
-        // TODO add your handling code here:
-        color.setBackground(JColorChooser.showDialog(this, "Ingrese un color", Color.yellow));
-    }//GEN-LAST:event_colorMouseClicked
-
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb1.getModel();
+        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb3.getModel();
             cb.removeAllElements();
             for (Vehiculo x : vehiculos) {
-                cb.addElement(x);
+                cb.addElement(x.getModelo());
             }
-            cb1.setModel(cb);
+            cb3.setModel(cb);
     }//GEN-LAST:event_jButton3MouseClicked
 
     /**
@@ -998,7 +981,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void leerVehiculos1() throws FileNotFoundException, IOException {
-        Scanner sc = null;
+    
         File x = new File("./Vehiculos.txt");
         FileReader fr = null;
         BufferedReader br = null;
@@ -1034,6 +1017,7 @@ public class Main extends javax.swing.JFrame {
                 int year = Integer.parseInt(token[3]);
                 double precio = Double.parseDouble(token[4]);
                 Vehiculo v = new Vehiculo(marca,color,modelo,year,precio);
+              
                 vehiculos.add(v);
             }
         } catch (IOException e) {
@@ -1042,13 +1026,13 @@ public class Main extends javax.swing.JFrame {
 
         br.close();
         fr.close();
-        sc.close();
+     
 
     }
-    private ArrayList<Vehiculo> vehiculos;
+    private ArrayList<Vehiculo> vehiculos = new ArrayList();
     private ArrayList<Vendedor> vendedores = new ArrayList();
-    private ArrayList<Cliente> clientes;
-    private ArrayList<Venta> ventas;
+    private ArrayList<Cliente> clientes = new ArrayList();
+    private ArrayList<Venta> ventas = new ArrayList();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cargar1;
@@ -1066,7 +1050,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb1;
     private javax.swing.JComboBox<String> cb2;
     private javax.swing.JComboBox<String> cb3;
-    private javax.swing.JButton color;
+    private javax.swing.JTextField color;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
