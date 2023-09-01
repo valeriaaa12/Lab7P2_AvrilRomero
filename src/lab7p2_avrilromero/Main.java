@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -102,6 +103,7 @@ public class Main extends javax.swing.JFrame {
         bt_cargar4 = new javax.swing.JButton();
         bt_guardar4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -237,6 +239,11 @@ public class Main extends javax.swing.JFrame {
 
         bt_cliente.setBackground(new java.awt.Color(0, 102, 102));
         bt_cliente.setText("Agregar Cliente");
+        bt_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_clienteMouseClicked(evt);
+            }
+        });
 
         jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
@@ -534,6 +541,11 @@ public class Main extends javax.swing.JFrame {
         jLabel17.setText("Carro vendido");
 
         cb1.setBackground(new java.awt.Color(255, 255, 255));
+        cb1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb1ActionPerformed(evt);
+            }
+        });
 
         cb2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -558,6 +570,9 @@ public class Main extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setText("Terminar Ventas");
 
+        jButton3.setBackground(new java.awt.Color(0, 102, 102));
+        jButton3.setText("update opciones");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -577,7 +592,8 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(cb2, 0, 191, Short.MAX_VALUE)
                                     .addComponent(txt_costoventa)
                                     .addComponent(cb3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(163, 163, 163)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -611,7 +627,9 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(bt_guardar4, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                             .addComponent(bt_cargar4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14)
                         .addGap(52, 52, 52)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -678,13 +696,18 @@ public class Main extends javax.swing.JFrame {
         }
         while (valid2 == false) {
             txt_dinerogenerado.setText("");
-            dinero = Integer.parseInt(txt_dinerogenerado.getText());
+            dinero = Double.parseDouble(txt_dinerogenerado.getText());
             valid2 = valid2(dinero);
         }
         // public Vendedor(String nombre, int cant_carros, double dinero)
         Vendedor v = new Vendedor(nombre, cant_carros, dinero);
         vendedores.add(v);
-
+        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb1.getModel();
+        cb.removeAllElements();
+        for (Vendedor vendedor : vendedores) {
+            cb.addElement(vendedor);
+        }
+        cb1.setModel(cb);
         File archivo = null;
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -724,6 +747,81 @@ public class Main extends javax.swing.JFrame {
         } catch (IOException ex) {
         }
     }//GEN-LAST:event_bt_vendedorMouseClicked
+
+    private void cb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb1ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cb1ActionPerformed
+
+    private void bt_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_clienteMouseClicked
+        // TODO add your handling code here:
+        //  public Cliente(String nombre, int edad, String profesion, int cant_carros, double sueldo) {
+        String nombre = txt_nombrecliente1.getText();
+        int edad = Integer.parseInt(txt_edadcliente.getText());
+        String profesion = txt_profesion.getText();
+        int cant_carros = Integer.parseInt(txt_cantcarros1.getText());
+        double sueldo = Double.parseDouble(txt_sueldo.getText());
+        boolean valid1 = valid(cant_carros);
+        boolean valid2 = valid2(sueldo);
+        while (valid1 == false) {
+            txt_cantcarros1.setText("");
+            cant_carros = Integer.parseInt(txt_cantcarros1.getText());
+            valid1 = valid(cant_carros);
+        }
+        while (valid2 == false) {
+            txt_sueldo.setText("");
+            sueldo = Double.parseDouble(txt_sueldo.getText());
+            valid2 = valid2(sueldo);
+        }
+        Cliente c = new Cliente(nombre, edad, profesion, cant_carros, sueldo);
+
+        File archivo = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            archivo = new File("./Clientes.txt");
+            fw = new FileWriter(archivo, true);
+            bw = new BufferedWriter(fw);
+
+            String x = "[";
+            x += "\n";
+            x += "\t";
+            x += nombre;
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_edadcliente.getText();
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_profesion.getText();
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_cantcarros1.getText();
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_sueldo.getText();
+            x += ",";
+            x += "\n";
+            x += "]";
+            bw.write(x);
+            bw.newLine();
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Agregado exitosamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_clienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -797,6 +895,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
