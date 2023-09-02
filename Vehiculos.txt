@@ -1,21 +1,14 @@
 [
 	Toyota,
 	Corolla,
-	Negro,
+	Blanco,
 	2011,
-	20000,
+	12344,
 ];
 [
 	Nissan,
 	Frontier,
-	Blanco,
+	Negro,
 	2020,
-	500000,
-];
-[
-	toyota,
-	Corolla,
-	blanco,
-	2015,
-	200000,
+	2121223,
 ];

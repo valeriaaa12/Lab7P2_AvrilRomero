@@ -4,4 +4,11 @@
 	Estudiante,
 	1,
 	20000,
-]
+];
+[
+	Maria,
+	25,
+	Ingeniera,
+	1,
+	20555,
+];

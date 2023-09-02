@@ -49,7 +49,7 @@ public class Vendedor {
 
     @Override
     public String toString() {
-        return nombre + "," + "\n" + cant_carros + "," + "\n" + dinero;
+        return nombre ;
     }
 
 }

@@ -18,7 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -34,6 +36,7 @@ public class Main extends javax.swing.JFrame {
         leerVehiculos1();
         leerClientes();
         leervendedores();
+        leerventas();
     }
 
     /**
@@ -100,13 +103,13 @@ public class Main extends javax.swing.JFrame {
         bt_cargar1 = new javax.swing.JButton();
         bt_guardar1 = new javax.swing.JButton();
         color = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         cb1 = new javax.swing.JComboBox<>();
-        clientes2 = new javax.swing.JComboBox<>();
         txt_costoventa = new javax.swing.JTextField();
         cb3 = new javax.swing.JComboBox<>();
         bt_venta = new javax.swing.JButton();
@@ -116,6 +119,7 @@ public class Main extends javax.swing.JFrame {
         bt_guardar4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        clientes2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,6 +160,11 @@ public class Main extends javax.swing.JFrame {
 
         bt_guardar2.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar2.setText("Guardar Archivo");
+        bt_guardar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_guardar2MouseClicked(evt);
+            }
+        });
 
         ta_vendedores.setBackground(new java.awt.Color(255, 255, 255));
         ta_vendedores.setColumns(20);
@@ -283,6 +292,11 @@ public class Main extends javax.swing.JFrame {
 
         bt_guardar3.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar3.setText("Guardar Archivo");
+        bt_guardar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_guardar3MouseClicked(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(0, 102, 102));
         jButton4.setText("Eliminar");
@@ -485,11 +499,29 @@ public class Main extends javax.swing.JFrame {
 
         bt_cargar1.setBackground(new java.awt.Color(0, 102, 102));
         bt_cargar1.setText("Cargar Archivo");
+        bt_cargar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_cargar1MouseClicked(evt);
+            }
+        });
 
         bt_guardar1.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar1.setText("Guardar Archivo");
+        bt_guardar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_guardar1MouseClicked(evt);
+            }
+        });
 
         color.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton5.setBackground(new java.awt.Color(0, 102, 102));
+        jButton5.setText("Eliminar");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -533,6 +565,10 @@ public class Main extends javax.swing.JFrame {
                         .addGap(45, 45, 45)
                         .addComponent(bt_guardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(128, 128, 128))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(240, 240, 240))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,7 +603,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_cargar1)
                     .addComponent(bt_guardar1))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton5)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Vehiculo", jPanel2);
@@ -593,14 +631,22 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        clientes2.setBackground(new java.awt.Color(255, 255, 255));
-
         txt_costoventa.setBackground(new java.awt.Color(255, 255, 255));
 
         cb3.setBackground(new java.awt.Color(255, 255, 255));
+        cb3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb3ItemStateChanged(evt);
+            }
+        });
 
         bt_venta.setBackground(new java.awt.Color(0, 102, 102));
         bt_venta.setText("Agregar Venta");
+        bt_venta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_ventaMouseClicked(evt);
+            }
+        });
 
         ta_venta.setBackground(new java.awt.Color(255, 255, 255));
         ta_venta.setColumns(20);
@@ -609,6 +655,11 @@ public class Main extends javax.swing.JFrame {
 
         bt_cargar4.setBackground(new java.awt.Color(0, 102, 102));
         bt_cargar4.setText("Cargar Archivo");
+        bt_cargar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_cargar4MouseClicked(evt);
+            }
+        });
 
         bt_guardar4.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar4.setText("Guardar Archivo");
@@ -623,6 +674,8 @@ public class Main extends javax.swing.JFrame {
                 jButton3MouseClicked(evt);
             }
         });
+
+        clientes2.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -640,9 +693,9 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(jLabel17))
                                 .addGap(37, 37, 37)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(clientes2, 0, 191, Short.MAX_VALUE)
                                     .addComponent(txt_costoventa)
-                                    .addComponent(cb3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(cb3, 0, 191, Short.MAX_VALUE)
+                                    .addComponent(clientes2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -782,6 +835,8 @@ public class Main extends javax.swing.JFrame {
             bw.flush();
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
+            Vendedor v = new Vendedor(nombre, cant_carros, dinero);
+            vendedores.add(v);
             txt_nombrevendedor.setText("");
             txt_carrosvendidos.setText("");
             txt_dinerogenerado.setText("");
@@ -858,6 +913,8 @@ public class Main extends javax.swing.JFrame {
             bw.write(x);
             bw.newLine();
             bw.flush();
+            Cliente c = new Cliente(nombre, edad, profesion, cant_carros, sueldo);
+            clientes.add(c);
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
             txt_nombrecliente1.setText("");
@@ -933,6 +990,8 @@ public class Main extends javax.swing.JFrame {
             bw.flush();
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
+            Vehiculo v = new Vehiculo(marca, color1, modelo, anio, precio);
+            vehiculos.add(v);
             txt_marca.setText("");
             txt_modelo.setText("");
             txt_precio.setText("");
@@ -955,21 +1014,24 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel cb = (DefaultComboBoxModel) cb3.getModel();
         cb.removeAllElements();
         for (Vehiculo x : vehiculos) {
-            cb.addElement(x.getModelo());
+            cb.addElement(x);
         }
         cb3.setModel(cb);
         DefaultComboBoxModel cb2 = (DefaultComboBoxModel) cb1.getModel();
-        cb.removeAllElements();
+
+        cb2.removeAllElements();
         for (Vendedor x : vendedores) {
-            cb.addElement(x.getNombre());
+            cb2.addElement(x);
         }
         cb1.setModel(cb2);
-        DefaultComboBoxModel cb3 = (DefaultComboBoxModel) clientes2.getModel();
-        cb.removeAllElements();
+
+        DefaultComboBoxModel cb4 = (DefaultComboBoxModel) clientes2.getModel();
+        cb4.removeAllElements();
         for (Cliente x : clientes) {
-            cb.addElement(x.getNombre());
+            System.out.println(x.getNombre());
+            cb4.addElement(x);
         }
-        clientes2.setModel(cb3);
+        clientes2.setModel(cb4);
 
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -983,15 +1045,15 @@ public class Main extends javax.swing.JFrame {
             ArrayList<String> datos = new ArrayList();
             fr = new FileReader(x);
             br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
-           
+
             String linea1;
-                ta_vendedores.setText("");
-                while ((linea1 = br.readLine()) != null) {
-                    ta_vendedores.append(linea1);//lo que se va leyendo se va agregando al text area
-                    ta_vendedores.append("\n");
-                }
-            
-                   } catch (IOException e) {
+            ta_vendedores.setText("");
+            while ((linea1 = br.readLine()) != null) {
+                ta_vendedores.append(linea1);//lo que se va leyendo se va agregando al text area
+                ta_vendedores.append("\n");
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -1001,8 +1063,8 @@ public class Main extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
     }//GEN-LAST:event_bt_cargar2MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -1025,15 +1087,15 @@ public class Main extends javax.swing.JFrame {
             ArrayList<String> datos = new ArrayList();
             fr = new FileReader(x);
             br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
-           
+
             String linea1;
-                ta_clientes.setText("");
-                while ((linea1 = br.readLine()) != null) {
-                    ta_clientes.append(linea1);//lo que se va leyendo se va agregando al text area
-                    ta_clientes.append("\n");
-                }
-            
-                   } catch (IOException e) {
+            ta_clientes.setText("");
+            while ((linea1 = br.readLine()) != null) {
+                ta_clientes.append(linea1);//lo que se va leyendo se va agregando al text area
+                ta_clientes.append("\n");
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -1044,6 +1106,217 @@ public class Main extends javax.swing.JFrame {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bt_cargar3MouseClicked
+
+    private void bt_cargar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargar1MouseClicked
+        // TODO add your handling code here:
+        File x = new File("./Vehiculos.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+
+            String linea1;
+            ta_vehiculo.setText("");
+            while ((linea1 = br.readLine()) != null) {
+                ta_vehiculo.append(linea1);//lo que se va leyendo se va agregando al text area
+                ta_vehiculo.append("\n");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            br.close();
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_bt_cargar1MouseClicked
+
+    private void bt_guardar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_guardar2MouseClicked
+        // TODO add your handling code here:
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            File fichero = new File("./Vendedores.txt");
+            fw = new FileWriter(fichero);
+            bw = new BufferedWriter(fw);
+            bw.write(ta_vendedores.getText());//le añade al buffered writer el texto del text area ta_1
+            ta_vendedores.setText("");
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Archivo guardado exitosamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_guardar2MouseClicked
+
+    private void bt_ventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_ventaMouseClicked
+        // TODO add your handling code here:
+        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb3.getModel();
+        String nombre1 = (String) cb1.getSelectedItem();
+        String nombre2 = (String) clientes2.getSelectedItem();
+        int seleccion = cb3.getSelectedIndex();
+        Vehiculo c = (Vehiculo) cb.getElementAt(seleccion);
+        double precio = c.getPrecio();
+        txt_costoventa.setText(String.valueOf(precio));
+        File archivo;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            archivo = new File("./Ventas.txt");
+            fw = new FileWriter(archivo, true);
+            bw = new BufferedWriter(fw);
+
+            String x = "[";
+            x += "\n";
+            x += "\t";
+            x += nombre1;
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += nombre2;
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += txt_costoventa.getText();
+            x += ",";
+            x += "\n";
+            x += "\t";
+            x += c.getModelo();
+            x += ",";
+            x += "\n";
+            x += "]";
+            x += ";";
+            bw.write(x);
+            bw.newLine();
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Agregado exitosamente");
+            txt_costoventa.setText("");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_ventaMouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        ta_vehiculo.setText("");
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void bt_guardar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_guardar1MouseClicked
+        // TODO add your handling code here:
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            File fichero = new File("./Vehiculos.txt");
+            fw = new FileWriter(fichero);
+            bw = new BufferedWriter(fw);
+            bw.write(ta_vendedores.getText());//le añade al buffered writer el texto del text area ta_1
+            ta_vendedores.setText("");
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Archivo guardado exitosamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_guardar1MouseClicked
+
+    private void bt_guardar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_guardar3MouseClicked
+        // TODO add your handling code here:
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            File fichero = new File("./Clientes.txt");
+            fw = new FileWriter(fichero);
+            bw = new BufferedWriter(fw);
+            bw.write(ta_vendedores.getText());//le añade al buffered writer el texto del text area ta_1
+            ta_vendedores.setText("");
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Archivo guardado exitosamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_guardar3MouseClicked
+
+    private void bt_cargar4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargar4MouseClicked
+        // TODO add your handling code here:
+        File x = new File("./Ventas.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+
+            String linea1;
+            ta_venta.setText("");
+            while ((linea1 = br.readLine()) != null) {
+                ta_venta.append(linea1);//lo que se va leyendo se va agregando al text area
+                ta_venta.append("\n");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            br.close();
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_cargar4MouseClicked
+
+    private void cb3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb3ItemStateChanged
+        DefaultComboBoxModel cb = (DefaultComboBoxModel) cb3.getModel();
+        try {
+            int seleccion = cb3.getSelectedIndex();
+            Vehiculo c = (Vehiculo) cb.getElementAt(seleccion);
+            System.out.println(c.toString());
+            double precio = c.getPrecio();
+            txt_costoventa.setText(String.valueOf(precio));
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_cb3ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -1132,12 +1405,12 @@ public class Main extends javax.swing.JFrame {
                 token[4] = token[4].substring(1, token[4].length() - 2);
                 //public Vehiculo(int id, String Marca, Color color, String modelo, int year, double precio) {
                 String marca = token[0];
-                String color = token[1];
-                String modelo = token[2];
+                String modelo = token[1];
+                String color = token[2];
                 int year = Integer.parseInt(token[3]);
                 double precio = Double.parseDouble(token[4]);
-                Vehiculo v = new Vehiculo(marca, color, modelo, year, precio);
 
+                Vehiculo v = new Vehiculo(marca, color, modelo, year, precio);
                 vehiculos.add(v);
             }
         } catch (IOException e) {
@@ -1170,6 +1443,7 @@ public class Main extends javax.swing.JFrame {
                 }
 
             }
+            System.out.println(datos.size());
             for (int i = 0; i < datos.size(); i++) {
                 String line2 = datos.get(i).toString();
                 String[] token = line2.split(",");
@@ -1238,6 +1512,51 @@ public class Main extends javax.swing.JFrame {
         br.close();
         fr.close();
     }
+
+    public void leerventas() throws IOException {
+        File x = new File("./Ventas.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                if (!linea.contains(";")) {
+                    line += linea;
+                } else {
+                    line += "\n]";
+                    datos.add(line);
+                    line = "";
+
+                }
+
+            }
+            for (int i = 0; i < datos.size(); i++) {
+                String line2 = datos.get(i).toString();
+                String[] token = line2.split(",");
+                token[0] = token[0].substring(2, token[0].length());
+                token[1] = token[1].substring(1, token[1].length());
+                token[2] = token[2].substring(1, token[2].length());
+                token[3] = token[3].substring(1, token[3].length() - 2);
+                //  public Vendedor(String nombre, int cant_carros, double dinero)
+                String nombre = token[0];
+                String cliente = token[1];
+                double transaccion = Double.parseDouble(token[2]);
+                String carro = token[3];
+                // public Venta(String vendedor, String cliente, double transaccion, String carro)
+                Venta v = new Venta(nombre, cliente, transaccion, carro);
+                ventas.add(v);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        br.close();
+        fr.close();
+    }
     private ArrayList<Vehiculo> vehiculos = new ArrayList();
     private ArrayList<Vendedor> vendedores = new ArrayList();
     private ArrayList<Cliente> clientes = new ArrayList();
@@ -1264,6 +1583,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

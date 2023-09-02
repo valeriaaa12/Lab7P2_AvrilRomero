@@ -80,7 +80,7 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return id+","+"\n"+Marca+","+"\n"+modelo+","+"\n"+year+","+"\n"+precio+"\n";
+        return modelo;
     }
    
 }
