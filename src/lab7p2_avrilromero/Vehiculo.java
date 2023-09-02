@@ -11,7 +11,7 @@ import java.awt.Color;
  * @author Valeria Romero
  */
 public class Vehiculo {
-   private int id;
+   private String id;
    private String Marca;
    private String color;
    private String modelo;
@@ -21,20 +21,21 @@ public class Vehiculo {
     public Vehiculo() {
     }
 
-    public Vehiculo( String Marca, String color, String modelo, int year, double precio) {
+    public Vehiculo( String Marca, String color, String modelo, int year, double precio,String id) {
       
         this.Marca = Marca;
         this.color = color;
         this.modelo = modelo;
         this.year = year;
         this.precio = precio;
+        this.id=id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

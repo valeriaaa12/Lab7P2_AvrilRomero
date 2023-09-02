@@ -13,14 +13,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -37,6 +41,7 @@ public class Main extends javax.swing.JFrame {
         leerClientes();
         leervendedores();
         leerventas();
+        cargarId();
     }
 
     /**
@@ -86,7 +91,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTree2 = new javax.swing.JTree();
+        jT2 = new javax.swing.JTree();
+        jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -120,6 +126,7 @@ public class Main extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         clientes2 = new javax.swing.JComboBox<>();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -229,12 +236,13 @@ public class Main extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_cargar2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(bt_guardar2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bt_guardar2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bt_vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bt_cargar2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -416,12 +424,20 @@ public class Main extends javax.swing.JFrame {
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane4.setViewportView(jTree1);
 
-        jTree2.setBackground(new java.awt.Color(255, 255, 255));
+        jT2.setBackground(new java.awt.Color(255, 255, 255));
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Dia");
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Venta");
         treeNode1.add(treeNode2);
-        jTree2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane5.setViewportView(jTree2);
+        jT2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane5.setViewportView(jT2);
+
+        jButton7.setBackground(new java.awt.Color(0, 102, 102));
+        jButton7.setText("Cargar Ventas del dia");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -439,6 +455,10 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7)
+                .addGap(189, 189, 189))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,7 +471,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                     .addComponent(jScrollPane5))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Jtrees", jPanel6);
@@ -554,7 +576,8 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(txt_precio, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)))
                 .addGap(149, 149, 149)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -573,38 +596,39 @@ public class Main extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(114, 114, 114))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_cargar1)
-                    .addComponent(bt_guardar1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txt_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txt_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addComponent(bt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bt_cargar1)
+                            .addComponent(bt_guardar1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -663,9 +687,19 @@ public class Main extends javax.swing.JFrame {
 
         bt_guardar4.setBackground(new java.awt.Color(0, 102, 102));
         bt_guardar4.setText("Guardar Archivo");
+        bt_guardar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_guardar4MouseClicked(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setText("Terminar Ventas");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(0, 102, 102));
         jButton3.setText("update opciones");
@@ -676,6 +710,14 @@ public class Main extends javax.swing.JFrame {
         });
 
         clientes2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton6.setBackground(new java.awt.Color(0, 153, 153));
+        jButton6.setText("Limpiar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -713,6 +755,10 @@ public class Main extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(bt_guardar4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addGap(230, 230, 230))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(202, 202, 202)
@@ -751,7 +797,9 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(bt_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton6)
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(65, 65, 65)
@@ -935,6 +983,12 @@ public class Main extends javax.swing.JFrame {
 
     private void bt_vehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_vehiculoMouseClicked
         // TODO add your handling code here:
+        String id1 = generarId();
+        while (verifyId(id, id1) == false) {
+            id1 = generarId();
+            verifyId(id, id1);
+        }
+        id.add(id1);
         String marca = txt_marca.getText();
         String color1 = color.getText();
         String modelo = txt_modelo.getText();
@@ -983,6 +1037,10 @@ public class Main extends javax.swing.JFrame {
             x += txt_precio.getText();
             x += ",";
             x += "\n";
+            x += "\t";
+            x += id1;
+            x += ",";
+            x += "\n";
             x += "]";
             x += ";";
             bw.write(x);
@@ -990,7 +1048,7 @@ public class Main extends javax.swing.JFrame {
             bw.flush();
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
-            Vehiculo v = new Vehiculo(marca, color1, modelo, anio, precio);
+            Vehiculo v = new Vehiculo(marca, color1, modelo, anio, precio, id1);
             vehiculos.add(v);
             txt_marca.setText("");
             txt_modelo.setText("");
@@ -1028,7 +1086,7 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel cb4 = (DefaultComboBoxModel) clientes2.getModel();
         cb4.removeAllElements();
         for (Cliente x : clientes) {
-            System.out.println(x.getNombre());
+
             cb4.addElement(x);
         }
         clientes2.setModel(cb4);
@@ -1171,12 +1229,15 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel cbbb = (DefaultComboBoxModel) clientes2.getModel();
         int s1 = cb1.getSelectedIndex();
         int s2 = clientes2.getSelectedIndex();
-        String nombre1 = (String) cbb.getElementAt(s1);
-        String nombre2 = (String) cbbb.getElementAt(s2);
+        String nombre1 = ((Vendedor) cbb.getElementAt(s1)).getNombre();
+        String nombre2 = ((Cliente) cbbb.getElementAt(s2)).getNombre();
         int seleccion = cb3.getSelectedIndex();
         Vehiculo c = (Vehiculo) cb.getElementAt(seleccion);
         double precio = c.getPrecio();
         txt_costoventa.setText(String.valueOf(precio));
+        Random r = new Random();
+        int idventa = r.nextInt(1, 25000);
+        String idventa1 = String.valueOf(idventa);
         File archivo;
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -1184,8 +1245,11 @@ public class Main extends javax.swing.JFrame {
             archivo = new File("./Ventas.txt");
             fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
-
             String x = "[";
+            x += "\n";
+            x += "\t";
+            x += idventa1;
+            x += ",";
             x += "\n";
             x += "\t";
             x += nombre1;
@@ -1203,6 +1267,10 @@ public class Main extends javax.swing.JFrame {
             x += c.getModelo();
             x += ",";
             x += "\n";
+            x += "\t";
+            x += c.getId();
+            x += ",";
+            x += "\n";
             x += "]";
             x += ";";
             bw.write(x);
@@ -1211,7 +1279,10 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,
                     "Agregado exitosamente");
             txt_costoventa.setText("");
-
+            //   public Venta(String vendedor, String cliente, double transaccion, String carro,String Id) 
+            Venta venta = new Venta(nombre1, nombre2, precio, c.getModelo(), c.getId(), idventa1);
+            ventasdia.add(venta);
+            ventas.add(venta);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1314,13 +1385,126 @@ public class Main extends javax.swing.JFrame {
         try {
             int seleccion = cb3.getSelectedIndex();
             Vehiculo c = (Vehiculo) cb.getElementAt(seleccion);
-            System.out.println(c.toString());
+
             double precio = c.getPrecio();
             txt_costoventa.setText(String.valueOf(precio));
         } catch (Exception e) {
         }
 
     }//GEN-LAST:event_cb3ItemStateChanged
+
+    private void bt_guardar4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_guardar4MouseClicked
+        // TODO add your handling code here:
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            File fichero = new File("./Ventas.txt");
+            fw = new FileWriter(fichero);
+            bw = new BufferedWriter(fw);
+            bw.write(ta_venta.getText());//le añade al buffered writer el texto del text area ta_1
+            ta_venta.setText("");
+            bw.flush();
+            JOptionPane.showMessageDialog(this,
+                    "Archivo guardado exitosamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_bt_guardar4MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int seleccion = fileChooser.showSaveDialog(this);//mostrar el filechooser, en modo save , el valor entero es una constante de las opciones que escogio
+        if (seleccion == JFileChooser.APPROVE_OPTION) {//se inicia cuando se da click en el boton guardar
+            File fichero;
+            fichero = new File(fileChooser.getSelectedFile() + ".txt");
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+
+            try {
+                fw = new FileWriter(fichero);
+                bw = new BufferedWriter(fw);
+                for (int i = 0; i < ventasdia.size(); i++) {
+                    String input = "[";
+                    input += "\n";
+                    input += "\t";
+                    input += ventasdia.get(i).getIdventa();
+                    input += ",";
+                    input += "\n";
+                    input += "\t";
+                    input += ventasdia.get(i).getVendedor().toString();
+                    input += ",";
+                    input += "\n";
+                    input += "\t";
+                    input += ventasdia.get(i).getCliente().toString();
+                    input += ",";
+                    input += "\n";
+                    input += "\t";
+                    input += ventasdia.get(i).getCarro();
+                    input += ",";
+                    input += "\n";
+                    input += "\t";
+                    input += ventasdia.get(i).getId();
+                    input += ",";
+                    input += "\n";
+                    input += "\t";
+                    input += String.valueOf(ventasdia.get(i).getTransaccion());
+                    input += "\n";
+                    input += "];";
+                    bw.write(input);
+                    bw.newLine();
+                }
+                bw.flush();
+                JOptionPane.showMessageDialog(this,
+                        "Archivo guardado exitosamente");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+            }
+        }
+
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        ta_venta.setText("");
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        // TODO add your handling code here:
+        DefaultTreeModel modeloARBOL
+                = (DefaultTreeModel) jT2.getModel();
+        DefaultMutableTreeNode raiz
+                = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+
+        for (Venta venta : ventasdia) {
+            if (raiz.getChildAt(ventasdia.indexOf(venta)).toString().
+                    equals(venta.getId())) {
+
+            } else {
+                DefaultMutableTreeNode venta1 = new DefaultMutableTreeNode(venta.getId());
+                DefaultMutableTreeNode nombre1 = new DefaultMutableTreeNode(venta.getVendedor());
+                DefaultMutableTreeNode nombre2 = new DefaultMutableTreeNode(venta.getCliente());
+                venta1.add(nombre1);
+                venta1.add(nombre2);
+                raiz.add(venta1);
+            }
+
+        }
+        modeloARBOL.reload();
+    }//GEN-LAST:event_jButton7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1406,15 +1590,17 @@ public class Main extends javax.swing.JFrame {
                 token[1] = token[1].substring(1, token[1].length());
                 token[2] = token[2].substring(1, token[2].length());
                 token[3] = token[3].substring(1, token[3].length());
-                token[4] = token[4].substring(1, token[4].length() - 2);
+                token[4] = token[4].substring(1, token[4].length());
+                token[5] = token[5].substring(1, token[5].length() - 2);
                 //public Vehiculo(int id, String Marca, Color color, String modelo, int year, double precio) {
                 String marca = token[0];
                 String modelo = token[1];
                 String color = token[2];
                 int year = Integer.parseInt(token[3]);
                 double precio = Double.parseDouble(token[4]);
+                String id = token[5];
 
-                Vehiculo v = new Vehiculo(marca, color, modelo, year, precio);
+                Vehiculo v = new Vehiculo(marca, color, modelo, year, precio, id);
                 vehiculos.add(v);
             }
         } catch (IOException e) {
@@ -1447,7 +1633,7 @@ public class Main extends javax.swing.JFrame {
                 }
 
             }
-            System.out.println(datos.size());
+
             for (int i = 0; i < datos.size(); i++) {
                 String line2 = datos.get(i).toString();
                 String[] token = line2.split(",");
@@ -1544,14 +1730,17 @@ public class Main extends javax.swing.JFrame {
                 token[0] = token[0].substring(2, token[0].length());
                 token[1] = token[1].substring(1, token[1].length());
                 token[2] = token[2].substring(1, token[2].length());
-                token[3] = token[3].substring(1, token[3].length() - 2);
+                token[3] = token[3].substring(1, token[3].length());
+                token[4] = token[4].substring(1, token[4].length());
+                token[5] = token[5].substring(1, token[5].length() - 2);
                 //  public Vendedor(String nombre, int cant_carros, double dinero)
-                String nombre = token[0];
-                String cliente = token[1];
-                double transaccion = Double.parseDouble(token[2]);
-                String carro = token[3];
+                String nombre = token[1];
+                String cliente = token[2];
+                double transaccion = Double.parseDouble(token[3]);
+                String carro = token[4];
+                String id = token[5];
                 // public Venta(String vendedor, String cliente, double transaccion, String carro)
-                Venta v = new Venta(nombre, cliente, transaccion, carro);
+                Venta v = new Venta(nombre, cliente, transaccion, carro, id, token[0]);
                 ventas.add(v);
             }
         } catch (IOException e) {
@@ -1561,11 +1750,66 @@ public class Main extends javax.swing.JFrame {
         br.close();
         fr.close();
     }
+
+    public void cargarId() throws IOException {
+        File x = new File("./Id.txt");
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            String line = "";
+            ArrayList<String> datos = new ArrayList();
+            fr = new FileReader(x);
+            br = new BufferedReader(fr);//todo lo que esta en el archivo esta en la ram
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] tokens = linea.split(",");
+                id.add(tokens[0]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        br.close();
+        fr.close();
+    }
+
+    public void escribirId() throws IOException {
+        File archivo;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        archivo = new File("./Id.txt");
+        fw = new FileWriter(archivo, true);
+        bw = new BufferedWriter(fw);
+        for (String string : id) {
+            bw.write(string);
+            bw.write(",");
+        }
+        bw.flush();
+    }
+
+    public String generarId() {
+        Random r = new Random();
+        int x = r.nextInt(1, 10000);
+        String y = String.valueOf(x);
+        return y;
+    }
+
+    public boolean verifyId(ArrayList<String> x, String y) {
+        int n = x.size();
+        for (int i = 0; i < n - 1; i++) {
+            if (x.get(i).equals(y)) {
+                return false;
+            }
+        }
+        return true;
+    }
     private ArrayList<Vehiculo> vehiculos = new ArrayList();
     private ArrayList<Vendedor> vendedores = new ArrayList();
     private ArrayList<Cliente> clientes = new ArrayList();
     private ArrayList<Venta> ventas = new ArrayList();
-
+    private ArrayList<Venta> ventasdia = new ArrayList();
+    private ArrayList<String> id = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cargar1;
     private javax.swing.JButton bt_cargar2;
@@ -1588,6 +1832,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1619,9 +1865,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTree jT2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTree jTree1;
-    private javax.swing.JTree jTree2;
     private javax.swing.JTextArea ta_clientes;
     private javax.swing.JTextArea ta_vehiculo;
     private javax.swing.JTextArea ta_vendedores;

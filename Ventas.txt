@@ -1,0 +1,40 @@
+[
+	20696,
+	Diego,
+	Valeria,
+	201452.0,
+	Corolla,
+	74,
+];
+[
+	11298,
+	Harold,
+	Maria,
+	1.2045214E7,
+	Frontier,
+	96,
+];
+[
+	3845,
+	Harold,
+	Maria,
+	1245878.0,
+	SF90,
+	73,
+];
+[
+	20169,
+	Hola,
+	Valeria,
+	1.2045214E7,
+	Frontier,
+	96,
+];
+[
+	15551,
+	Diego,
+	Maria,
+	1245878.0,
+	SF90,
+	73,
+];
