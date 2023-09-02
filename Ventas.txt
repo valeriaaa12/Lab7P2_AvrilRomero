@@ -86,3 +86,19 @@
 	Urus,
 	8935,
 ];
+[
+	9811,
+	Sergio Ramos,
+	Maria,
+	1245878.0,
+	SF90,
+	73,
+];
+[
+	17737,
+	Messi,
+	Son HeungMin,
+	3435665.0,
+	Phantom,
+	2600,
+];
