@@ -1167,8 +1167,12 @@ public class Main extends javax.swing.JFrame {
     private void bt_ventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_ventaMouseClicked
         // TODO add your handling code here:
         DefaultComboBoxModel cb = (DefaultComboBoxModel) cb3.getModel();
-        String nombre1 = (String) cb1.getSelectedItem();
-        String nombre2 = (String) clientes2.getSelectedItem();
+        DefaultComboBoxModel cbb = (DefaultComboBoxModel) cb1.getModel();
+        DefaultComboBoxModel cbbb = (DefaultComboBoxModel) clientes2.getModel();
+        int s1 = cb1.getSelectedIndex();
+        int s2 = clientes2.getSelectedIndex();
+        String nombre1 = (String) cbb.getElementAt(s1);
+        String nombre2 = (String) cbbb.getElementAt(s2);
         int seleccion = cb3.getSelectedIndex();
         Vehiculo c = (Vehiculo) cb.getElementAt(seleccion);
         double precio = c.getPrecio();
