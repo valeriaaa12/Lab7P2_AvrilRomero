@@ -78,7 +78,7 @@ public class Venta {
 
     @Override
     public String toString() {
-        return vendedor + "," + "\n" + cliente + "," + "\n" + transaccion + "," + "\n" + carro;
+        return idventa;
     }
 
 }

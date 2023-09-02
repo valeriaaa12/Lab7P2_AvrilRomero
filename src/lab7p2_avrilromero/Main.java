@@ -89,10 +89,11 @@ public class Main extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jt1 = new javax.swing.JTree();
         jScrollPane5 = new javax.swing.JScrollPane();
         jT2 = new javax.swing.JTree();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -411,22 +412,14 @@ public class Main extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setText("Actividades");
 
-        jTree1.setBackground(new java.awt.Color(255, 255, 255));
+        jt1.setBackground(new java.awt.Color(255, 255, 255));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Admin");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Carros");
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Vendedor");
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Ventas");
-        treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane4.setViewportView(jTree1);
+        jt1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane4.setViewportView(jt1);
 
         jT2.setBackground(new java.awt.Color(255, 255, 255));
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Dia");
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Venta");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Venta");
         treeNode1.add(treeNode2);
         jT2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane5.setViewportView(jT2);
@@ -436,6 +429,14 @@ public class Main extends javax.swing.JFrame {
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton7MouseClicked(evt);
+            }
+        });
+
+        jButton8.setBackground(new java.awt.Color(0, 102, 102));
+        jButton8.setText("Cargar Informacion");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
             }
         });
 
@@ -456,7 +457,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(155, 155, 155)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton7)
                 .addGap(189, 189, 189))
         );
@@ -472,7 +475,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                     .addComponent(jScrollPane5))
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -1488,23 +1493,65 @@ public class Main extends javax.swing.JFrame {
                 = (DefaultTreeModel) jT2.getModel();
         DefaultMutableTreeNode raiz
                 = (DefaultMutableTreeNode) modeloARBOL.getRoot();
-
+        raiz.removeAllChildren();
         for (Venta venta : ventasdia) {
-            if (raiz.getChildAt(ventasdia.indexOf(venta)).toString().
-                    equals(venta.getId())) {
-
-            } else {
-                DefaultMutableTreeNode venta1 = new DefaultMutableTreeNode(venta.getId());
-                DefaultMutableTreeNode nombre1 = new DefaultMutableTreeNode(venta.getVendedor());
-                DefaultMutableTreeNode nombre2 = new DefaultMutableTreeNode(venta.getCliente());
-                venta1.add(nombre1);
-                venta1.add(nombre2);
-                raiz.add(venta1);
-            }
+            DefaultMutableTreeNode venta1 = new DefaultMutableTreeNode(venta.getIdventa());
+            DefaultMutableTreeNode nombre1 = new DefaultMutableTreeNode(venta.getVendedor());
+            DefaultMutableTreeNode nombre2 = new DefaultMutableTreeNode(venta.getCliente());
+            DefaultMutableTreeNode carroid = new DefaultMutableTreeNode(venta.getId());
+            DefaultMutableTreeNode carro = new DefaultMutableTreeNode(venta.getCarro());
+            carroid.add(carro);
+            venta1.add(nombre1);
+            venta1.add(nombre2);
+            venta1.add(carroid);
+            raiz.add(venta1);
 
         }
         modeloARBOL.reload();
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        // TODO add your handling code here:
+        DefaultTreeModel modeloARBOL
+                = (DefaultTreeModel) jt1.getModel();
+        DefaultMutableTreeNode raiz
+                = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+        raiz.removeAllChildren();
+        DefaultMutableTreeNode vendedores1
+                = new DefaultMutableTreeNode("Vendedores");
+        DefaultMutableTreeNode clientes1
+                = new DefaultMutableTreeNode("Clientes");
+        DefaultMutableTreeNode carros
+                = new DefaultMutableTreeNode("Carros");
+        DefaultMutableTreeNode ventas11
+                = new DefaultMutableTreeNode("Ventas");
+        for (Vehiculo vehiculo : vehiculos) {
+             DefaultMutableTreeNode v
+                = new DefaultMutableTreeNode(vehiculo.toString());
+             carros.add(v);
+        }
+        for (Vendedor vendedore : vendedores) {
+             DefaultMutableTreeNode v
+                = new DefaultMutableTreeNode(vendedore.toString());
+             vendedores1.add(v);
+        }
+        for (Cliente cliente : clientes) {
+             DefaultMutableTreeNode v
+                = new DefaultMutableTreeNode(cliente.toString());
+             clientes1.add(v);
+        }
+        for (Venta venta : ventas) {
+             DefaultMutableTreeNode v
+                = new DefaultMutableTreeNode(venta.toString());
+             ventas11.add(v);
+        }
+        raiz.add(ventas11);
+        raiz.add(vendedores1);
+        raiz.add(carros);
+        raiz.add(clientes1);
+        modeloARBOL.reload();
+
+    }//GEN-LAST:event_jButton8MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1834,6 +1881,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1867,7 +1915,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTree jT2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JTree jt1;
     private javax.swing.JTextArea ta_clientes;
     private javax.swing.JTextArea ta_vehiculo;
     private javax.swing.JTextArea ta_vendedores;

@@ -38,3 +38,51 @@
 	SF90,
 	73,
 ];
+[
+	18024,
+	Harold,
+	Maria,
+	1245878.0,
+	SF90,
+	73,
+];
+[
+	11966,
+	Diego,
+	Valeria,
+	201452.0,
+	Corolla,
+	74,
+];
+[
+	17291,
+	Hola,
+	Valeria,
+	201452.0,
+	Corolla,
+	74,
+];
+[
+	14086,
+	Diego,
+	Maria,
+	1.2045214E7,
+	Frontier,
+	96,
+];
+[
+	6227,
+	Hola,
+	Maria,
+	1.2045214E7,
+	Frontier,
+	96,
+];
+[
+	11791,
+	Messi,
+	Neymar,
+	1.38977454E8,
+	Urus,
+	8935,
+];
